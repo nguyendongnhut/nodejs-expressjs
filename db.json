@@ -1,24 +1,19 @@
 {
   "users": [
     {
-      "name": "nhut",
-      "id": "xbOimmHdg"
-    },
-    {
       "name": "Phat",
       "id": "h5jmyVokH"
     },
     {
-      "name": "Nhan nhọ",
-      "id": "bMc-1-cWc"
-    },
-    {
-      "name": "Nhan óc",
-      "id": "ZkAxafWko"
-    },
-    {
       "name": "Phát óc chó",
       "id": "5nZsuPHgi"
+    },
+    {
+      "name": "Nguyên",
+      "phone": "23487563284",
+      "id": "SGvgjXRXD",
+      "email": "nhut@gmail",
+      "password": "12345"
     }
   ]
 }
