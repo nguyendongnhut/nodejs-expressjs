@@ -1,0 +1,27 @@
+extends ../layouts/common
+
+block content
+    .d-flex.mb-5
+        h1 Users List
+        a.btn-primary.btn.ml-5(href='/users/create') New User
+
+    form(action="users", method="GET")
+        .form-group.d-flex
+            input.form-control(type="text", name="q", value=question)
+            button.btn.btn-primary.ml-3 Search
+
+    table.table
+        thead
+            tr
+                th Name
+                th Phone
+                th Action
+        tbody
+            each user in users
+                tr
+                    td= user.name
+                    td= user.phone
+                    td
+                        a.btn-primary.btn(href="/users/" + user.id) View
+                        a.btn-primary.btn.ml-2(href="/users/update/" + user.id) Edit
+                        a.btn-primary.btn.ml-2(href="/users/delete/" + user.id) Delete

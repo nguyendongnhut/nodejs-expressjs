@@ -1,0 +1,8 @@
+extends ../layouts/common
+
+block content
+    h1 Update User
+    form(action=("/users/update/" + user.id) , method="POST")
+        input(type="text", name="name", value=user.name)
+
+        button Update
