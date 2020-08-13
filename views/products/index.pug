@@ -1,0 +1,32 @@
+extends ../layouts/common 
+
+block content
+    h1 List Product
+    .row
+        each product in products
+            .col.col-3.mb-3
+                .card(style='width: 16rem;')
+                    img.card-img-top(src=product.image)
+                    .card-body
+                        h5.card-title= product.name
+                        p.card-text= product.description
+                        a.btn.btn-primary(href='#') add to card
+    
+    nav(aria-label='Page navigation example')
+        ul.pagination
+            if location === 1
+                li.page-item
+                    a.page-link(href=("?page=" + 13)) Previous
+            else
+                li.page-item
+                        a.page-link(href=("?page=" + (location-1))) Previous
+            while n <= page
+                li.page-item
+                    a.page-link(href=("?page=" + n))= n++
+            if location === 13
+                li.page-item
+                    a.page-link(href=("?page=" + 1)) Next
+            else
+                li.page-item
+                        a.page-link(href=("?page=" + (location+1))) Next
+
