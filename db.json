@@ -1,26 +1,23 @@
 {
   "users": [
     {
-      "name": "Phat",
-      "id": "h5jmyVokH"
-    },
-    {
       "name": "Phát óc chó",
       "id": "5nZsuPHgi"
     },
     {
-      "name": "Nguyên",
-      "phone": "23487563284",
-      "id": "SGvgjXRXD",
-      "email": "nhut@gmail",
-      "password": "827ccb0eea8a706c4c34a16891f84e7b"
+      "name": "nhut",
+      "phone": "12345",
+      "email": "asd@gmail.com",
+      "password": "827ccb0eea8a706c4c34a16891f84e7b",
+      "id": "LzE8QOYQQ"
     },
     {
       "name": "Nhọ",
       "phone": "23487563284",
-      "email": "nho@gmail",
-      "password": "81dc9bdb52d04dc20036dbd8313ed055",
-      "id": "68h-bSsTU"
+      "email": "nhut@gmail",
+      "password": "202cb962ac59075b964b07152d234b70",
+      "id": "l_sV_uR9m",
+      "avatar": "uploads/386a57d1a3ac542395c8f251b07a23b9"
     }
   ],
   "products": [
@@ -623,6 +620,30 @@
       "name": "Sugar Thermometer",
       "image": "https://loremflickr.com/320/240",
       "description": "sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "bFJkf8yzW",
+      "cart": {
+        "f083bace-71eb-47d3-bd40-2607ef1a3210": 9,
+        "37bd46e5-a528-41f0-b904-eeea6d5a4aad": 6
+      }
+    },
+    {
+      "id": "UV416ccUY",
+      "cart": {
+        "37bd46e5-a528-41f0-b904-eeea6d5a4aad": 3,
+        "68374761-b0d9-42c1-81db-8c18d8fc3fc4": 1
+      }
+    },
+    {
+      "id": "AGlsqiBHd",
+      "cart": {
+        "68374761-b0d9-42c1-81db-8c18d8fc3fc4": 4,
+        "fd003109-4520-4492-932f-a8a6f9db963e": 1,
+        "37bd46e5-a528-41f0-b904-eeea6d5a4aad": 2
+      }
     }
   ]
 }
