@@ -34,7 +34,7 @@ module.exports.viewProducts = function (req, res) {
   //   res.redirect("/products");
   // }
 
-  fetch("http://localhost:3001/api", {
+  fetch("http://localhost:3001/api/products", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     // body: "{}",

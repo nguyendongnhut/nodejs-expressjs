@@ -15,6 +15,24 @@ const getProduct = async () => {
   return rtData;
 };
 
+const createProduct = async (product) => {
+  const query =
+    "INSERT INTO `products`(name, image, description) VALUES (?,?,?)";
+
+  let rtData = [];
+  try {
+    rtData = await pool.executeQuery(query, [
+      product.name,
+      product.image,
+      product.description,
+    ]);
+  } catch (error) {
+    throw error;
+  }
+  return rtData;
+};
+
 module.exports = {
   getProduct,
+  createProduct,
 };
