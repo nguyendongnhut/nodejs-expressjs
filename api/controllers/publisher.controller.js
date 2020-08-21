@@ -1,6 +1,6 @@
-const categodyModel = require("../models/category.model");
+const publisherModel = require("../models/publisher.model");
 
-module.exports.viewCategory = async (req, res) => {
+module.exports.viewPublishers = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -8,7 +8,7 @@ module.exports.viewCategory = async (req, res) => {
   };
 
   try {
-    objectResult.data = await categodyModel.getCategory();
+    objectResult.data = await publisherModel.getPublishers();
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -17,15 +17,15 @@ module.exports.viewCategory = async (req, res) => {
   res.json(objectResult.data);
 };
 
-module.exports.createCategory = async (req, res) => {
+module.exports.createPublisher = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
-    category: req.body,
+    publisher: req.body,
   };
 
   try {
-    objectResult = await categodyModel.createCategory(objectResult.category);
+    objectResult = await publisherModel.createPublisher(objectResult.publisher);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
