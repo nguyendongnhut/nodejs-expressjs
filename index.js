@@ -23,6 +23,7 @@ const sessionMiddleware = require("./middlewares/session.middleware");
 
 const apiProductRoute = require("./api/routes/product.route");
 const apiUserRoute = require("./api/routes/user.route");
+const apiCategoryRoute = require("./api/routes/category.route");
 
 const port = 3001;
 
@@ -52,5 +53,7 @@ app.use("/cart", cartMiddleware.countCart, cartRoute);
 app.use("/api/products", apiProductRoute);
 
 app.use("/api/users", apiUserRoute);
+
+app.use("/api/categorys", apiCategoryRoute);
 
 app.listen(port);
