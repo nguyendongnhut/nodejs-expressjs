@@ -1,5 +1,6 @@
 const productModel = require("../models/product.model");
 
+// get list products
 module.exports.viewProducts = async (req, res) => {
   let objectResult = {
     code: 200,
@@ -18,22 +19,14 @@ module.exports.viewProducts = async (req, res) => {
 
 // create product
 module.exports.createProduct = async (req, res) => {
-  // const data = await productModel.createProduct(product, function (err, rows) {
-  //   if (err) {
-  //     res.status(400).send(err);
-  //     return;
-  //   }
-  //   res.send(rows);
-  // });
-  const product = req.body;
-
   let objectResult = {
     code: 201,
     error: "",
-    product: product,
+    product: req.body,
   };
+
   try {
-    objectResult.data = await productModel.createProduct(product);
+    objectResult.data = await productModel.createProduct(objectResult.product);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -63,8 +56,6 @@ module.exports.deleteProduct = async (req, res) => {
 
 //update info product according to productId
 module.exports.updateProduct = async (req, res) => {
-  const product = req.body;
-
   let objectResult = {
     code: 200,
     error: "",
@@ -97,6 +88,46 @@ module.exports.detailProduct = async (req, res) => {
   try {
     objectResult.data = await productModel.detailProduct(
       objectResult.productId
+    );
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult.data);
+};
+
+// get list products according to categoryId
+module.exports.getListCategoryProducts = async (req, res) => {
+  let objectResult = {
+    code: 200,
+    error: "",
+    categoryId: req.params.categoryId,
+  };
+
+  try {
+    objectResult.data = await productModel.getListCategoryProducts(
+      objectResult.categoryId
+    );
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult.data);
+};
+
+// get list products according to publisherId
+module.exports.getListPublisherProducts = async (req, res) => {
+  let objectResult = {
+    code: 200,
+    error: "",
+    publisherId: req.params.publisherId,
+  };
+
+  try {
+    objectResult.data = await productModel.getListPublisherProducts(
+      objectResult.publisherId
     );
   } catch (error) {
     objectResult.code = 500;

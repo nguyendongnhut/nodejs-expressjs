@@ -13,4 +13,8 @@ router.delete("/:id", controller.deleteProduct);
 
 router.put("/:id", controller.updateProduct);
 
+router.get("/categorys/:categoryId", controller.getListCategoryProducts);
+
+router.get("/publishers/:publisherId", controller.getListPublisherProducts);
+
 module.exports = router;

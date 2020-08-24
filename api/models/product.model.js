@@ -94,10 +94,50 @@ const detailProduct = async (productId) => {
   return rtData;
 };
 
+/**
+ * get list products according to categoryId
+ * @param {int} categoryId
+ * @return {Array}
+ */
+const getListCategoryProducts = async (categoryId) => {
+  const query = "select * from products where categoryId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, categoryId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+/**
+ * get list products according to publisherId
+ * @param {int} publisherId
+ * @return {Array}
+ */
+const getListPublisherProducts = async (publisherId) => {
+  const query = "select * from products where publisherId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, publisherId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   getProduct,
   createProduct,
   deleteProduct,
   updateProduct,
   detailProduct,
+  getListCategoryProducts,
+  getListPublisherProducts,
 };

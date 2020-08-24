@@ -28,7 +28,22 @@ const createCategory = async (category) => {
   return rtData;
 };
 
+const deleteCategory = async (id) => {
+  const query = "delete from categorys where categoryId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, id);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   getCategory,
   createCategory,
+  deleteCategory,
 };

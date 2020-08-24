@@ -1,5 +1,6 @@
-const categodyModel = require("../models/category.model");
+const categoryModel = require("../models/category.model");
 
+// get list categorys
 module.exports.viewCategory = async (req, res) => {
   let objectResult = {
     code: 200,
@@ -8,7 +9,7 @@ module.exports.viewCategory = async (req, res) => {
   };
 
   try {
-    objectResult.data = await categodyModel.getCategory();
+    objectResult.data = await categoryModel.getCategory();
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -17,6 +18,7 @@ module.exports.viewCategory = async (req, res) => {
   res.json(objectResult.data);
 };
 
+// create category
 module.exports.createCategory = async (req, res) => {
   let objectResult = {
     code: 200,
@@ -25,7 +27,25 @@ module.exports.createCategory = async (req, res) => {
   };
 
   try {
-    objectResult = await categodyModel.createCategory(objectResult.category);
+    objectResult = await categoryModel.createCategory(objectResult.category);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
+// delete category according to categoryId
+module.exports.deleteCategory = async (req, res) => {
+  let objectResult = {
+    code: 200,
+    error: "",
+    categoryId: req.params.id,
+  };
+
+  try {
+    objectResult = await categoryModel.deleteCategory(objectResult.categoryId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;

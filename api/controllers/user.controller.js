@@ -1,5 +1,6 @@
 const userModel = require("../models/user.model");
 
+// view list user
 module.exports.viewUsers = async (req, res) => {
   let objectResult = {
     code: 200,
@@ -17,17 +18,16 @@ module.exports.viewUsers = async (req, res) => {
   res.json(objectResult.data);
 };
 
+// create user
 module.exports.createUser = async (req, res) => {
-  const user = req.body;
-
   let objectResult = {
     code: 200,
     error: "",
-    user: user,
+    user: req.body,
   };
 
   try {
-    objectResult.data = await userModel.createUser(user);
+    objectResult.data = await userModel.createUser(objectResult.user);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -36,17 +36,16 @@ module.exports.createUser = async (req, res) => {
   res.json(objectResult);
 };
 
+// get detail user according to userId
 module.exports.detailUser = async (req, res) => {
-  const userId = req.params.id;
-
   let objectResult = {
     code: 200,
     error: "",
-    userId: userId,
+    userId: req.params.userId,
   };
 
   try {
-    objectResult.data = await userModel.detailUser(userId);
+    objectResult.data = await userModel.detailUser(objectResult.userId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -55,6 +54,7 @@ module.exports.detailUser = async (req, res) => {
   res.json(objectResult.data);
 };
 
+// delete user according to userId
 module.exports.deleteUser = async (req, res) => {
   let objectResult = {
     code: 200,

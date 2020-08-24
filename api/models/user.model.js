@@ -61,6 +61,10 @@ const detailUser = async (userId) => {
   return rtData;
 };
 
+/**
+ * delete user according to userId
+ * @param {int} userId
+ */
 const deleteUser = async (userId) => {
   const query = "delete from users where userId = ?";
 

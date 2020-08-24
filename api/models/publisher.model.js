@@ -36,7 +36,22 @@ const createPublisher = async (publisher) => {
   return rtData;
 };
 
+const deletePublisher = async (id) => {
+  const query = "delete from publishers where publisherId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, id);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   getPublishers,
   createPublisher,
+  deletePublisher,
 };
