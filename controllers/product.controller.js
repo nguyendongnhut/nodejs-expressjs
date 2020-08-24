@@ -12,12 +12,6 @@ module.exports.viewProducts = function (req, res) {
   // start = (n - 1) * x;
   // end = n * x;
 
-  const page = parseInt(req.query.page) || 1;
-  const perPage = 8;
-
-  const start = (page - 1) * perPage;
-  const end = page * perPage;
-
   // const allProduct = db.get("products").value().length;
   // const allPage = Math.ceil(allProduct / 8);
 
@@ -33,6 +27,12 @@ module.exports.viewProducts = function (req, res) {
   // } else {
   //   res.redirect("/products");
   // }
+
+  const page = parseInt(req.query.page) || 1;
+  const perPage = 8;
+
+  const start = (page - 1) * perPage;
+  const end = page * perPage;
 
   fetch("http://localhost:3001/api/products", {
     method: "GET",

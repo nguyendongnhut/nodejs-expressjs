@@ -1,15 +1,53 @@
 const shortId = require("shortid");
 const md5 = require("md5");
-const db = require("../db");
+// const db = require("../db");
 
-module.exports.index = function (req, res) {
+const fetch = require("node-fetch");
+
+/**
+ * get list users
+ * @return {Promise}
+ */
+const users = fetch("http://localhost:3001/api/users", {
+  method: "GET",
+  headers: { "Content-Type": "application/json" },
+})
+  .then(async (response) => {
+    data = await response.json();
+
+    return data;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+module.exports.index = async function (req, res) {
+  // const q = req.query.q;
+  // const matchList = db
+  //   .get("users")
+  //   .value()
+  //   .filter((user) => {
+  //     return user.name.toLowerCase().indexOf(q) !== -1;
+  //   });
+
+  // if (matchList.length > 0) {
+  //   res.render("users/index", {
+  //     users: matchList,
+  //     question: q,
+  //   });
+  // } else {
+  //   res.render("users/index", {
+  //     users: db.get("users").value(),
+  //     question: q,
+  //   });
+  // }
+
   const q = req.query.q;
-  const matchList = db
-    .get("users")
-    .value()
-    .filter((user) => {
-      return user.name.toLowerCase().indexOf(q) !== -1;
-    });
+  const data = await users;
+
+  const matchList = data.filter((user) => {
+    return user.name.toLowerCase().indexOf(q) !== -1;
+  });
 
   if (matchList.length > 0) {
     res.render("users/index", {
@@ -18,22 +56,30 @@ module.exports.index = function (req, res) {
     });
   } else {
     res.render("users/index", {
-      users: db.get("users").value(),
+      users: data,
       question: q,
     });
   }
 };
 
+// page create
 module.exports.create = function (req, res) {
   res.render("users/create");
 };
 
-module.exports.view = function (req, res) {
+// view detail user according to userId
+module.exports.view = async function (req, res) {
   const id = req.params.id;
 
-  const user = db.get("users").find({ id: id }).value();
+  const data = await users;
+
+  // const user = db.get("users").find({ id: id }).value();
+  const user = data.filter((item) => {
+    console.log(item.userId);
+    return id == item.userId;
+  });
   res.render("users/view", {
-    user: user,
+    user: user[0],
   });
 };
 
