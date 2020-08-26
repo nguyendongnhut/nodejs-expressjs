@@ -1,7 +1,11 @@
 const publisherModel = require("../models/publisher.model");
 
-// view list publishers
-module.exports.viewPublishers = async (req, res) => {
+/**
+ * get list publisher
+ * @param {object} req
+ * @param {object} res
+ */
+const viewPublishers = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -18,8 +22,12 @@ module.exports.viewPublishers = async (req, res) => {
   res.json(objectResult.data);
 };
 
-// create publisher
-module.exports.createPublisher = async (req, res) => {
+/**
+ * create publisher according to publisherId
+ * @param {object} req
+ * @param {object} res
+ */
+const createPublisher = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -36,8 +44,12 @@ module.exports.createPublisher = async (req, res) => {
   res.json(objectResult);
 };
 
-// delete publisher according to publisherId
-module.exports.deletePublisher = async (req, res) => {
+/**
+ * delete publisher according to publisherId
+ * @param {object} req
+ * @param {object} res
+ */
+const deletePublisher = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -54,4 +66,10 @@ module.exports.deletePublisher = async (req, res) => {
   }
 
   res.json(objectResult);
+};
+
+module.exports = {
+  viewPublishers,
+  createPublisher,
+  deletePublisher,
 };

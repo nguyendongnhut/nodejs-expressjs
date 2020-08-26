@@ -1,6 +1,6 @@
-var mysql = require("mysql");
+const mysql = require("mysql");
 
-var connection = mysql.createPool({
+const connection = mysql.createPool({
   connectionLimit: 1000,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,

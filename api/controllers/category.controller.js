@@ -1,7 +1,11 @@
 const categoryModel = require("../models/category.model");
 
-// get list categorys
-module.exports.viewCategory = async (req, res) => {
+/**
+ * get list categorys
+ * @param {object} req
+ * @param {object} res
+ */
+const viewCategory = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -18,8 +22,12 @@ module.exports.viewCategory = async (req, res) => {
   res.json(objectResult.data);
 };
 
-// create category
-module.exports.createCategory = async (req, res) => {
+/**
+ * create category
+ * @param {object} req
+ * @param {object} res
+ */
+const createCategory = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -36,8 +44,12 @@ module.exports.createCategory = async (req, res) => {
   res.json(objectResult);
 };
 
-// delete category according to categoryId
-module.exports.deleteCategory = async (req, res) => {
+/**
+ * delete category according to categoryId
+ * @param {object} req
+ * @param {object} res
+ */
+const deleteCategory = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -52,4 +64,10 @@ module.exports.deleteCategory = async (req, res) => {
   }
 
   res.json(objectResult);
+};
+
+module.exports = {
+  viewCategory,
+  createCategory,
+  deleteCategory,
 };

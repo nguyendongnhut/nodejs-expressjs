@@ -3,6 +3,8 @@ const md5 = require("md5");
 let fetch = require("node-fetch");
 // const db = require("../db");
 
+const jwt = require("jsonwebtoken");
+
 module.exports.login = function (req, res) {
   res.render("auth/login");
 };
@@ -58,9 +60,21 @@ module.exports.postLogin = function (req, res) {
         return;
       }
 
+      // let body = {
+      //   name: user[0].name,
+      //   email: user[0].email,
+      //   phone: user[0].phone,
+      //   password: user[0].password,
+      // };
+      // var token = jwt.sign({ body }, process.env.SECRETKEY_TOKEN, {
+      //   algorithm: "HS256",
+      //   expiresIn: "3h",
+      // });
+
       res.cookie("userId", user[0].userId, {
         signed: true,
       });
+      // res.json({ access_token: token });
       res.redirect("/users");
 
       return data;

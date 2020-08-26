@@ -1,7 +1,11 @@
 const productModel = require("../models/product.model");
 
-// get list products
-module.exports.viewProducts = async (req, res) => {
+/**
+ * get list products
+ * @param {object} req
+ * @param {object} res
+ */
+const viewProducts = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -17,8 +21,12 @@ module.exports.viewProducts = async (req, res) => {
   res.json(objectResult.data);
 };
 
-// create product
-module.exports.createProduct = async (req, res) => {
+/**
+ * create product
+ * @param {object} req
+ * @param {object} res
+ */
+const createProduct = async (req, res) => {
   let objectResult = {
     code: 201,
     error: "",
@@ -35,8 +43,12 @@ module.exports.createProduct = async (req, res) => {
   res.json(objectResult);
 };
 
-// delete product according to productId
-module.exports.deleteProduct = async (req, res) => {
+/**
+ * delete product according to productId
+ * @param {object} req
+ * @param {object} res
+ */
+const deleteProduct = async (req, res) => {
   let objectResult = {
     code: 204,
     error: "",
@@ -54,8 +66,12 @@ module.exports.deleteProduct = async (req, res) => {
   res.json(objectResult);
 };
 
-//update info product according to productId
-module.exports.updateProduct = async (req, res) => {
+/**
+ * update product according to productId
+ * @param {object} req
+ * @param {object} res
+ */
+const updateProduct = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -76,8 +92,12 @@ module.exports.updateProduct = async (req, res) => {
   res.json(objectResult);
 };
 
-// get detail product according to productId
-module.exports.detailProduct = async (req, res) => {
+/**
+ * get detail product according to productId
+ * @param {object} req
+ * @param {object} res
+ */
+const detailProduct = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -97,8 +117,12 @@ module.exports.detailProduct = async (req, res) => {
   res.json(objectResult.data);
 };
 
-// get list products according to categoryId
-module.exports.getListCategoryProducts = async (req, res) => {
+/**
+ * get list products according to categoryId
+ * @param {object} req
+ * @param {object} res
+ */
+const getListCategoryProducts = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -117,8 +141,12 @@ module.exports.getListCategoryProducts = async (req, res) => {
   res.json(objectResult.data);
 };
 
-// get list products according to publisherId
-module.exports.getListPublisherProducts = async (req, res) => {
+/**
+ * get list products according to publisherId
+ * @param {object} req
+ * @param {object} res
+ */
+const getListPublisherProducts = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -135,4 +163,14 @@ module.exports.getListPublisherProducts = async (req, res) => {
   }
 
   res.json(objectResult.data);
+};
+
+module.exports = {
+  viewProducts,
+  createProduct,
+  deleteProduct,
+  getListCategoryProducts,
+  getListPublisherProducts,
+  detailProduct,
+  updateProduct,
 };

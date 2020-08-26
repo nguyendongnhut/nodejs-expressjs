@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // const lowdbApi = require("lowdb-api");
 
+const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 
 const app = express();
@@ -25,6 +27,8 @@ const apiProductRoute = require("./api/routes/product.route");
 const apiUserRoute = require("./api/routes/user.route");
 const apiCategoryRoute = require("./api/routes/category.route");
 const apiPublisherRoute = require("./api/routes/publisher.route");
+const apiAuthRoute = require("./api/routes/auth.route");
+const apiAuthMiddleware = require("./api/middlewares/auth.middleware");
 
 const port = 3001;
 
@@ -50,9 +54,10 @@ app.use("/products", productRoute);
 app.use("/cart", cartMiddleware.countCart, cartRoute);
 
 // API route
-app.use("/api/products", apiProductRoute);
+app.use("/api/products", apiAuthMiddleware.requireAuth, apiProductRoute);
 app.use("/api/users", apiUserRoute);
 app.use("/api/categorys", apiCategoryRoute);
 app.use("/api/publishers", apiPublisherRoute);
+app.use("/api/auth", apiAuthRoute);
 
 app.listen(port);

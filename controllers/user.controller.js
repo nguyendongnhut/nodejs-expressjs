@@ -75,7 +75,6 @@ module.exports.view = async function (req, res) {
 
   // const user = db.get("users").find({ id: id }).value();
   const user = data.filter((item) => {
-    console.log(item.userId);
     return id == item.userId;
   });
   res.render("users/view", {

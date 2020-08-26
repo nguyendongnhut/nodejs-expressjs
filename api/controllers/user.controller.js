@@ -1,7 +1,11 @@
 const userModel = require("../models/user.model");
 
-// view list user
-module.exports.viewUsers = async (req, res) => {
+/**
+ * get list user
+ * @param {object} req
+ * @param {object} res
+ */
+const viewUsers = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -18,8 +22,12 @@ module.exports.viewUsers = async (req, res) => {
   res.json(objectResult.data);
 };
 
-// create user
-module.exports.createUser = async (req, res) => {
+/**
+ * create user
+ * @param {object} req
+ * @param {object} res
+ */
+const createUser = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -36,8 +44,12 @@ module.exports.createUser = async (req, res) => {
   res.json(objectResult);
 };
 
-// get detail user according to userId
-module.exports.detailUser = async (req, res) => {
+/**
+ * get detail user according to userId
+ * @param {object} req
+ * @param {object} res
+ */
+const detailUser = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -54,8 +66,12 @@ module.exports.detailUser = async (req, res) => {
   res.json(objectResult.data);
 };
 
-// delete user according to userId
-module.exports.deleteUser = async (req, res) => {
+/**
+ * delete user according to userId
+ * @param {object} req
+ * @param {object} res
+ */
+const deleteUser = async (req, res) => {
   let objectResult = {
     code: 200,
     error: "",
@@ -70,4 +86,11 @@ module.exports.deleteUser = async (req, res) => {
   }
 
   res.json(objectResult);
+};
+
+module.exports = {
+  viewUsers,
+  createUser,
+  detailUser,
+  deleteUser,
 };
