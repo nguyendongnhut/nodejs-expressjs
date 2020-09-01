@@ -8,9 +8,9 @@ block content
             .alert.alert-danger= error
 
     form.mt-5(action="/auth/login", method="POST")
-        label(for="email") Email
+        label(for="account") Account
         .form-group
-            input#email.form-control(type="email", name="email", value=value ? value.email : '')
+            input#account.form-control(type="text", name="useraccount", value=value ? value.useraccount : '')
 
         label(for="password") Password
         .form-group

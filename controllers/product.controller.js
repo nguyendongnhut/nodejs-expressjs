@@ -1,7 +1,7 @@
 // const db = require("../db");
 
 let fetch = require("node-fetch");
-
+const sessionStorage = require("sessionstorage");
 // const Bluebird = require("bluebird");
 
 // fetch.Promise = Bluebird;
@@ -36,7 +36,10 @@ module.exports.viewProducts = function (req, res) {
 
   fetch("http://localhost:3001/api/products", {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    },
     // body: "{}",
   })
     .then(async (response) => {

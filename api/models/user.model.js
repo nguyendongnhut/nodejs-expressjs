@@ -25,14 +25,15 @@ const getUser = async () => {
  */
 const createUser = async (user) => {
   const query =
-    "INSERT INTO `users`(name, phone, email, password) VALUES (?, ?, ?, ?)";
+    "INSERT INTO `users`(username, email, phone, useraccount, password) VALUES (?, ?, ?, ?, ?)";
 
   let rtData = [];
   try {
     rtData = await pool.executeQuery(query, [
-      user.name,
-      user.phone,
+      user.username,
       user.email,
+      user.phone,
+      user.useraccount,
       md5(user.password),
     ]);
   } catch (error) {
@@ -48,12 +49,30 @@ const createUser = async (user) => {
  * @return {Array}
  */
 const detailUser = async (userId) => {
-  const query = "select * from users where userId = ?";
+  const query = "select username, email, phone from users where userId = ?";
 
   let rtData = [];
 
   try {
     rtData = await pool.executeQuery(query, userId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+/**
+ * get lists useraccount
+ * @return {Array}
+ */
+const checkUserAccount = async () => {
+  const query = "select useraccount from users";
+
+  let rtData = [{}];
+
+  try {
+    rtData = await pool.executeQuery(query);
   } catch (error) {
     throw error;
   }
@@ -78,9 +97,46 @@ const deleteUser = async (userId) => {
   return rtData;
 };
 
+const updateInfoUser = async (user, id) => {
+  const query =
+    "UPDATE `users` SET `username`= ?,`email`=?,`phone`=? WHERE userId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, [
+      user.username,
+      user.email,
+      user.phone,
+      id,
+    ]);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+const changePassword = async (user, id) => {
+  const query = "UPDATE `users` SET `password`=? WHERE userId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, [md5(user.password), id]);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   getUser,
   createUser,
   detailUser,
   deleteUser,
+  checkUserAccount,
+  updateInfoUser,
+  changePassword,
 };

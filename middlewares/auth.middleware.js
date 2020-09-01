@@ -4,10 +4,17 @@ const fetch = require("node-fetch");
 
 const jwt = require("jsonwebtoken");
 
+var sessionStorage = require("sessionstorage");
+
 module.exports.requireAuth = function (req, res, next) {
-  if (!req.signedCookies.userId) {
+  if (
+    !sessionStorage.getItem("token") &&
+    sessionStorage.getItem("token") === null
+  ) {
     res.redirect("/auth/login");
     return;
+  } else {
+    next();
   }
 
   // const user = db.get("users").find({ id: req.signedCookies.userId }).value();
@@ -38,31 +45,29 @@ module.exports.requireAuth = function (req, res, next) {
   //   });
   // }
 
-  let user = [];
+  // let user = [];
 
-  fetch("http://localhost:3001/api/users", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  })
-    .then(async (response) => {
-      data = await response.json();
+  // fetch("http://localhost:3001/api/users", {
+  //   method: "GET",
+  //   headers: { "Content-Type": "application/json" },
+  // })
+  //   .then(async (response) => {
+  //     data = await response.json();
 
-      user = data.filter((item) => {
-        return item.userId === req.signedCookies.userId;
-      });
+  //     user = data.filter((item) => {
+  //       return item.userId === req.signedCookies.userId;
+  //     });
 
-      if (!user) {
-        res.redirect("/auth/login");
-        return;
-      }
+  //     if (!user) {
+  //       res.redirect("/auth/login");
+  //       return;
+  //     }
 
-      return data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  //     return data;
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
-  res.locals.user = user;
-
-  next();
+  // res.locals.user = user;
 };

@@ -1,4 +1,6 @@
 const authModel = require("../models/auth.model");
+const userModel = require("../models/user.model");
+
 const token_key = require("../../config/TokenKey");
 const jwt = require("jsonwebtoken");
 /**
@@ -7,37 +9,55 @@ const jwt = require("jsonwebtoken");
  * @param {object} res
  */
 const checkUser = async (req, res) => {
-  let objectResult = {
-    code: 200,
-    error: "",
-    user: req.body,
-    data: [],
-  };
+  const params = req.body;
+  let dataResult = {};
+  let userResult = [];
 
   try {
-    objectResult.data = await authModel.checkUser(objectResult.user);
+    userResult = await authModel.checkUser(params);
+
+    if (userResult.length > 0) {
+      let body = {
+        userId: userResult[0].userId,
+      };
+
+      const token = jwt.sign({ body }, token_key.tokenKey, {
+        algorithm: "HS256",
+        expiresIn: "3h",
+      });
+
+      dataResult.statusCode = 200;
+      dataResult.access_token = token;
+
+      res.json(dataResult);
+    } else {
+      dataResult.statusCode = 400;
+      dataResult.message = "useraccount or password is not correct";
+      res.send(dataResult);
+    }
   } catch (error) {
-    objectResult.code = 500;
-    objectResult.error = error;
+    dataResult.code = 500;
+    dataResult.error = error;
   }
 
-  if (objectResult.data.length > 0) {
-    let body = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-    };
-    var token = jwt.sign({ body }, token_key.tokenKey, {
-      algorithm: "HS256",
-      expiresIn: "3h",
-    });
+  // if (userResult.length > 0) {
+  //   let body = {
+  //     userId: userResult[0].userId,
+  //   };
 
-    res.json({ access_token: token });
-  } else {
-    res.send("đăng nhập thất bại");
-  }
+  //   const token = jwt.sign({ body }, token_key.tokenKey, {
+  //     algorithm: "HS256",
+  //     expiresIn: "3h",
+  //   });
 
-  //   res.json(objectResult.data);
+  //   dataResult.statusCode = 201;
+  //   dataResult.access_token = token;
+
+  //   res.json(dataResult);
+  // } else {
+  //   dataResult.statusCode = 400;
+  //   res.send(dataResult);
+  // }
 };
 
 module.exports = {

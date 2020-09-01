@@ -46,7 +46,7 @@ module.exports.index = async function (req, res) {
   const data = await users;
 
   const matchList = data.filter((user) => {
-    return user.name.toLowerCase().indexOf(q) !== -1;
+    return user.username.toLowerCase().indexOf(q) !== -1;
   });
 
   if (matchList.length > 0) {
@@ -95,10 +95,16 @@ module.exports.postCreate = function (req, res) {
   res.redirect("/users");
 };
 
-module.exports.update = function (req, res) {
+module.exports.update = async function (req, res) {
   const id = req.params.id;
 
-  const user = db.get("users").find({ id: id }).value();
+  // const user = db.get("users").find({ id: id }).value();
+  const data = await users;
+
+  const user = data.filter((item) => {
+    return id == item.userId;
+  });
+
   res.render("users/update", {
     user: user,
   });
@@ -107,7 +113,7 @@ module.exports.update = function (req, res) {
 module.exports.postUpdate = function (req, res) {
   const uid = req.params.id;
 
-  db.get("users").find({ id: uid }).assign({ name: req.body.name }).write();
+  // db.get("users").find({ id: uid }).assign({ name: req.body.name }).write();
 
   res.redirect("/users");
 };

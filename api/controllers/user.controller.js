@@ -88,9 +88,53 @@ const deleteUser = async (req, res) => {
   res.json(objectResult);
 };
 
+const updateInfoUser = async (req, res) => {
+  let objectResult = {
+    code: 200,
+    error: "",
+    userId: req.params.id,
+    user: req.body,
+  };
+
+  try {
+    objectResult.data = await userModel.updateInfoUser(
+      objectResult.user,
+      objectResult.userId
+    );
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
+const changePassword = async (req, res) => {
+  let objectResult = {
+    code: 200,
+    error: "",
+    user: req.body,
+    userId: req.params.id,
+  };
+
+  try {
+    objectResult.data = await userModel.changePassword(
+      objectResult.user,
+      objectResult.userId
+    );
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
 module.exports = {
   viewUsers,
   createUser,
   detailUser,
   deleteUser,
+  updateInfoUser,
+  changePassword,
 };

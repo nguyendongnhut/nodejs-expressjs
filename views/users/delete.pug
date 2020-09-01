@@ -4,6 +4,6 @@ block content
     h1 Delete User
     p
         b Name
-        span= user.name
+        span= user.username
         form(action=("/users/delete/" + user.id), method="POST")
             button DELETE

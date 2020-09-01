@@ -27,14 +27,15 @@ const viewProducts = async (req, res) => {
  * @param {object} res
  */
 const createProduct = async (req, res) => {
+  product = req.body;
+
   let objectResult = {
     code: 201,
     error: "",
-    product: req.body,
   };
 
   try {
-    objectResult.data = await productModel.createProduct(objectResult.product);
+    objectResult.data = await productModel.createProduct(product);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
