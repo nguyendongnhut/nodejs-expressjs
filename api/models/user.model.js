@@ -97,6 +97,11 @@ const deleteUser = async (userId) => {
   return rtData;
 };
 
+/**
+ * update info user according to userId
+ * @param {object} user
+ * @param {int} id
+ */
 const updateInfoUser = async (user, id) => {
   const query =
     "UPDATE `users` SET `username`= ?,`email`=?,`phone`=? WHERE userId = ?";
@@ -117,6 +122,11 @@ const updateInfoUser = async (user, id) => {
   return rtData;
 };
 
+/**
+ * change password of user according to userId
+ * @param {object} user
+ * @param {int} id
+ */
 const changePassword = async (user, id) => {
   const query = "UPDATE `users` SET `password`=? WHERE userId = ?";
 

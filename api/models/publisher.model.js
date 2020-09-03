@@ -36,6 +36,10 @@ const createPublisher = async (publisher) => {
   return rtData;
 };
 
+/**
+ * delete publisher according to publisherId
+ * @param {int} id
+ */
 const deletePublisher = async (id) => {
   const query = "delete from publishers where publisherId = ?";
 

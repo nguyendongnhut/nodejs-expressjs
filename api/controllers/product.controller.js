@@ -50,15 +50,14 @@ const createProduct = async (req, res) => {
  * @param {object} res
  */
 const deleteProduct = async (req, res) => {
+  const productId = req.params.id;
+
   let objectResult = {
     code: 204,
     error: "",
-    productId: req.params.id,
   };
   try {
-    objectResult.data = await productModel.deleteProduct(
-      objectResult.productId
-    );
+    objectResult.data = await productModel.deleteProduct(productId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -73,18 +72,16 @@ const deleteProduct = async (req, res) => {
  * @param {object} res
  */
 const updateProduct = async (req, res) => {
+  const productId = req.params.id;
+  const product = req.body;
+
   let objectResult = {
     code: 200,
     error: "",
-    productId: req.params.id,
-    product: product,
   };
 
   try {
-    objectResult = await productModel.updateProduct(
-      objectResult.product,
-      objectResult.productId
-    );
+    objectResult = await productModel.updateProduct(product, productId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -99,17 +96,16 @@ const updateProduct = async (req, res) => {
  * @param {object} res
  */
 const detailProduct = async (req, res) => {
+  const productId = req.params.id;
+
   let objectResult = {
     code: 200,
     error: "",
     data: [],
-    productId: req.params.id,
   };
 
   try {
-    objectResult.data = await productModel.detailProduct(
-      objectResult.productId
-    );
+    objectResult.data = await productModel.detailProduct(productId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -124,16 +120,15 @@ const detailProduct = async (req, res) => {
  * @param {object} res
  */
 const getListCategoryProducts = async (req, res) => {
+  const categoryId = req.params.categoryId;
+
   let objectResult = {
     code: 200,
     error: "",
-    categoryId: req.params.categoryId,
   };
 
   try {
-    objectResult.data = await productModel.getListCategoryProducts(
-      objectResult.categoryId
-    );
+    objectResult.data = await productModel.getListCategoryProducts(categoryId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -148,15 +143,16 @@ const getListCategoryProducts = async (req, res) => {
  * @param {object} res
  */
 const getListPublisherProducts = async (req, res) => {
+  const publisherId = req.params.publisherId;
+
   let objectResult = {
     code: 200,
     error: "",
-    publisherId: req.params.publisherId,
   };
 
   try {
     objectResult.data = await productModel.getListPublisherProducts(
-      objectResult.publisherId
+      publisherId
     );
   } catch (error) {
     objectResult.code = 500;

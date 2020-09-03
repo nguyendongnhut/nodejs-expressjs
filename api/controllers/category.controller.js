@@ -28,14 +28,15 @@ const viewCategory = async (req, res) => {
  * @param {object} res
  */
 const createCategory = async (req, res) => {
+  const category = req.body;
+
   let objectResult = {
     code: 200,
     error: "",
-    category: req.body,
   };
 
   try {
-    objectResult = await categoryModel.createCategory(objectResult.category);
+    objectResult = await categoryModel.createCategory(category);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -50,14 +51,14 @@ const createCategory = async (req, res) => {
  * @param {object} res
  */
 const deleteCategory = async (req, res) => {
+  const categoryId = req.params.id;
   let objectResult = {
     code: 200,
     error: "",
-    categoryId: req.params.id,
   };
 
   try {
-    objectResult = await categoryModel.deleteCategory(objectResult.categoryId);
+    objectResult = await categoryModel.deleteCategory(categoryId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;

@@ -1,5 +1,11 @@
 const userModel = require("../models/user.model");
 
+/**
+ * check whether the useraccount already exists
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 const checkUserAccount = async function (req, res, next) {
   try {
     let listUserAccounts = await userModel.checkUserAccount();
@@ -14,27 +20,6 @@ const checkUserAccount = async function (req, res, next) {
   } catch (error) {
     res.json(error);
   }
-
-  //   const bearer = String(req.headers.authorization.split(" ")[0]).toLowerCase();
-  //   const bearerToken = req.headers.authorization.split(" ")[1];
-
-  //   if (req.headers && req.headers.authorization && bearer === "bearer") {
-  //     let token = bearerToken;
-  //     jwt.verify(token, token_key.tokenKey, function (err, decode) {
-  //       if (err) {
-  //         return res.status(403).send({
-  //           token,
-  //           message: "Token invalid",
-  //         });
-  //       } else {
-  //         return next();
-  //       }
-  //     });
-  //   } else {
-  //     return res.status(403).send({
-  //       message: "Unauthorized",
-  //     });
-  //   }
 };
 
 module.exports = {

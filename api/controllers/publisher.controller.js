@@ -28,14 +28,15 @@ const viewPublishers = async (req, res) => {
  * @param {object} res
  */
 const createPublisher = async (req, res) => {
+  const publisher = req.body;
+
   let objectResult = {
     code: 200,
     error: "",
-    publisher: req.body,
   };
 
   try {
-    objectResult = await publisherModel.createPublisher(objectResult.publisher);
+    objectResult = await publisherModel.createPublisher(publisher);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -50,16 +51,15 @@ const createPublisher = async (req, res) => {
  * @param {object} res
  */
 const deletePublisher = async (req, res) => {
+  const publisherId = req.params.id;
+
   let objectResult = {
     code: 200,
     error: "",
-    publisherId: req.params.id,
   };
 
   try {
-    objectResult = await publisherModel.deletePublisher(
-      objectResult.publisherId
-    );
+    objectResult = await publisherModel.deletePublisher(publisherId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;

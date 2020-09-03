@@ -1,5 +1,9 @@
 const pool = require("../../config/GetConnect");
 
+/**
+ * get list category
+ * @return {Array}
+ */
 const getCategory = async () => {
   const query = "select * from categorys";
 
@@ -14,6 +18,10 @@ const getCategory = async () => {
   return rtData;
 };
 
+/**
+ * create category
+ * @param {object} category
+ */
 const createCategory = async (category) => {
   const query = "insert into categorys(name) values(?)";
 
@@ -28,6 +36,10 @@ const createCategory = async (category) => {
   return rtData;
 };
 
+/**
+ * delete category according to categoryId
+ * @param {int} id
+ */
 const deleteCategory = async (id) => {
   const query = "delete from categorys where categoryId = ?";
 

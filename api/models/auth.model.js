@@ -1,6 +1,10 @@
 const pool = require("../../config/GetConnect");
 const md5 = require("md5");
 
+/**
+ * check user is exist with useraccount and password
+ * @param {object} user
+ */
 const checkUser = async (user) => {
   const query =
     "select userId from users where useraccount = ? and password = ?";

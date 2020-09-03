@@ -28,14 +28,15 @@ const viewUsers = async (req, res) => {
  * @param {object} res
  */
 const createUser = async (req, res) => {
+  const user = req.body;
+
   let objectResult = {
     code: 200,
     error: "",
-    user: req.body,
   };
 
   try {
-    objectResult.data = await userModel.createUser(objectResult.user);
+    objectResult.data = await userModel.createUser(user);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -50,14 +51,15 @@ const createUser = async (req, res) => {
  * @param {object} res
  */
 const detailUser = async (req, res) => {
+  const userId = req.params.userId;
+
   let objectResult = {
     code: 200,
     error: "",
-    userId: req.params.userId,
   };
 
   try {
-    objectResult.data = await userModel.detailUser(objectResult.userId);
+    objectResult.data = await userModel.detailUser(userId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -72,14 +74,15 @@ const detailUser = async (req, res) => {
  * @param {object} res
  */
 const deleteUser = async (req, res) => {
+  const userId = req.params.id;
+
   let objectResult = {
     code: 200,
     error: "",
-    userId: req.params.id,
   };
 
   try {
-    objectResult = await userModel.deleteUser(objectResult.userId);
+    objectResult = await userModel.deleteUser(userId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -89,18 +92,15 @@ const deleteUser = async (req, res) => {
 };
 
 const updateInfoUser = async (req, res) => {
+  const userId = req.params.id;
+  const user = req.body;
   let objectResult = {
     code: 200,
     error: "",
-    userId: req.params.id,
-    user: req.body,
   };
 
   try {
-    objectResult.data = await userModel.updateInfoUser(
-      objectResult.user,
-      objectResult.userId
-    );
+    objectResult.data = await userModel.updateInfoUser(user, userId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -110,18 +110,16 @@ const updateInfoUser = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
+  const userId = req.params.id;
+  const user = req.body;
+
   let objectResult = {
     code: 200,
     error: "",
-    user: req.body,
-    userId: req.params.id,
   };
 
   try {
-    objectResult.data = await userModel.changePassword(
-      objectResult.user,
-      objectResult.userId
-    );
+    objectResult.data = await userModel.changePassword(user, userId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
