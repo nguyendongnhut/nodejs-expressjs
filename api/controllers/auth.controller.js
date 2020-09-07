@@ -39,25 +39,6 @@ const checkUser = async (req, res) => {
     dataResult.code = 500;
     dataResult.error = error;
   }
-
-  // if (userResult.length > 0) {
-  //   let body = {
-  //     userId: userResult[0].userId,
-  //   };
-
-  //   const token = jwt.sign({ body }, token_key.tokenKey, {
-  //     algorithm: "HS256",
-  //     expiresIn: "3h",
-  //   });
-
-  //   dataResult.statusCode = 201;
-  //   dataResult.access_token = token;
-
-  //   res.json(dataResult);
-  // } else {
-  //   dataResult.statusCode = 400;
-  //   res.send(dataResult);
-  // }
 };
 
 module.exports = {

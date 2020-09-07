@@ -21,14 +21,17 @@ const getProduct = async () => {
  */
 const createProduct = async (product) => {
   const query =
-    "INSERT INTO `products`(name, image, description) VALUES (?,?,?)";
+    "INSERT INTO `products`(name, authorname, image, description, categoryId, publisherId) VALUES (?,?,?,?,?,?)";
 
   let rtData = [];
   try {
     rtData = await pool.executeQuery(query, [
       product.name,
+      product.authorname,
       product.image,
       product.description,
+      product.categoryId,
+      product.publisherId,
     ]);
   } catch (error) {
     throw error;
