@@ -54,8 +54,28 @@ const deleteCategory = async (id) => {
   return rtData;
 };
 
+/**
+ * change name category according to categoryId
+ * @param {int} id
+ * @param {object} category
+ */
+const updateCategory = async (id, category) => {
+  const query = "update categorys set name = ? where categoryId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, [category.name, id]);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   getCategory,
   createCategory,
   deleteCategory,
+  updateCategory,
 };
