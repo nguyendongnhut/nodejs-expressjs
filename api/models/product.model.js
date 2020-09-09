@@ -21,7 +21,7 @@ const getProduct = async () => {
  */
 const createProduct = async (product) => {
   const query =
-    "INSERT INTO `products`(name, authorname, image, description, categoryId, publisherId) VALUES (?,?,?,?,?,?)";
+    "INSERT INTO `products`(name, authorname, image, description, price, categoryId, publisherId) VALUES (?,?,?,?,?,?,?)";
 
   let rtData = [];
   try {
@@ -30,6 +30,7 @@ const createProduct = async (product) => {
       product.authorname,
       product.image,
       product.description,
+      product.price,
       product.categoryId,
       product.publisherId,
     ]);

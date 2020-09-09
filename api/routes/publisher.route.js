@@ -7,6 +7,8 @@ router.get("/", controller.viewPublishers);
 
 router.post("/", controller.createPublisher);
 
+router.put("/:id", controller.updatePublisher);
+
 router.delete("/:id", controller.deletePublisher);
 
 module.exports = router;

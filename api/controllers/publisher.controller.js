@@ -68,8 +68,28 @@ const deletePublisher = async (req, res) => {
   res.json(objectResult);
 };
 
+const updatePublisher = async (req, res) => {
+  const publisherId = req.params.id;
+  const publisher = req.body;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult = await publisherModel.updatePublisher(publisherId, publisher);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
 module.exports = {
   viewPublishers,
   createPublisher,
   deletePublisher,
+  updatePublisher,
 };

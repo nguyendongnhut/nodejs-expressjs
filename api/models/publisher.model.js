@@ -54,8 +54,28 @@ const deletePublisher = async (id) => {
   return rtData;
 };
 
+/**
+ * update publisher according to publisherId
+ * @param {int} id
+ * @param {object} publisher
+ */
+const updatePublisher = async (id, publisher) => {
+  const query = "UPDATE publishers SET name=?  WHERE publisherId=?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, [publisher.name, id]);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   getPublishers,
   createPublisher,
   deletePublisher,
+  updatePublisher,
 };
