@@ -23,4 +23,6 @@ router.get("/publishers/:publisherId", controller.getListPublisherProducts);
 
 router.post("/uploadImage", controller.uploadImage);
 
+router.post("/q", controller.getProductQuery);
+
 module.exports = router;

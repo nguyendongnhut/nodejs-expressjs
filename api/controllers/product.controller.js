@@ -47,6 +47,46 @@ const uploadImage = (req, res) => {
 };
 
 /**
+ * get lists product with query parameters
+ * @param {object} req
+ * @param {object} res
+ * @return {Array} resultData
+ */
+const getProductQuery = async (req, res) => {
+  // get value page from query parameters
+  const page = parseInt(req.query.page) || 1;
+  const limit = 10;
+
+  const start = (page - 1) * limit;
+  const end = page * limit;
+
+  let resultData = {};
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await productModel.getProduct();
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  resultData.totalPage = Math.ceil(objectResult.data.length / limit);
+  resultData.totalProduct = objectResult.data.length;
+
+  if (page > resultData.totalPage) {
+    resultData.error = "nothing product here";
+  } else {
+    resultData.data = objectResult.data.slice(start, end);
+  }
+
+  res.json(resultData);
+};
+
+/**
  * create product
  * @param {object} req
  * @param {object} res
@@ -196,4 +236,5 @@ module.exports = {
   detailProduct,
   updateProduct,
   uploadImage,
+  getProductQuery,
 };

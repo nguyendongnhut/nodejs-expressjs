@@ -60,8 +60,8 @@ app.use("/products", productRoute);
 app.use("/cart", cartMiddleware.countCart, cartRoute);
 
 // API route
-app.use("/api/products", apiAuthMiddleware.checkToken, apiProductRoute);
-// app.use("/api/products", apiProductRoute);
+// app.use("/api/products", apiAuthMiddleware.checkToken, apiProductRoute);
+app.use("/api/products", apiProductRoute);
 app.use("/api/image", apiGetImage);
 app.use("/api/users", apiUserRoute);
 app.use("/api/categorys", apiCategoryRoute);

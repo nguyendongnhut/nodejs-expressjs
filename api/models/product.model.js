@@ -136,6 +136,10 @@ const getListPublisherProducts = async (publisherId) => {
   return rtData;
 };
 
+// const getProductQuery = async (page, limit) => {
+//   const query = "select * from products "
+// }
+
 module.exports = {
   getProduct,
   createProduct,
