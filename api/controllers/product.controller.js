@@ -1,4 +1,6 @@
 const productModel = require("../models/product.model");
+const fs = require("fs");
+const path = require("path");
 
 /**
  * get list products
@@ -20,6 +22,38 @@ const viewProducts = async (req, res) => {
 
   res.json(objectResult.data);
 };
+
+const uploadImage = (req, res) => {
+  if (req.files === null) {
+    return res.status(400).json({ msg: "No file uploaded" });
+  }
+
+  const file = req.files.image;
+
+  file.mv(`${__dirname}/../../public/uploads/${file.name}`, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+
+    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+  });
+};
+
+// const uploadImage = (req, res) => {
+//   const processedFile = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
+//   let orgName = processedFile.originalname || ""; // Tên gốc trong máy tính của người upload
+//   orgName = orgName.trim().replace(/ /g, "-");
+//   const fullPathInServ = processedFile.path; // Đường dẫn đầy đủ của file vừa đc upload lên server
+//   // Đổi tên của file vừa upload lên, vì multer đang đặt default ko có đuôi file
+//   const newFullPath = `${fullPathInServ}-${orgName}`;
+//   fs.renameSync(fullPathInServ, newFullPath);
+//   res.send({
+//     status: true,
+//     message: "file uploaded",
+//     fileNameInServer: newFullPath,
+//   });
+// };
 
 /**
  * create product
@@ -170,4 +204,5 @@ module.exports = {
   getListPublisherProducts,
   detailProduct,
   updateProduct,
+  uploadImage,
 };

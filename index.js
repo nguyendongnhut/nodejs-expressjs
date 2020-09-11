@@ -3,6 +3,7 @@ const express = require("express");
 var cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
 // const lowdbApi = require("lowdb-api");
 
 const jwt = require("jsonwebtoken");
@@ -12,6 +13,7 @@ require("dotenv").config();
 const app = express();
 
 app.use(cors());
+app.use(fileUpload());
 // const file = path.join(__dirname, "./db.json");
 
 // const options = {};
@@ -31,6 +33,7 @@ const apiCategoryRoute = require("./api/routes/category.route");
 const apiPublisherRoute = require("./api/routes/publisher.route");
 const apiAuthRoute = require("./api/routes/auth.route");
 const apiAuthMiddleware = require("./api/middlewares/checkToken.middleware");
+const apiGetImage = require("./api/routes/image.route");
 
 const port = 3001;
 
@@ -58,6 +61,8 @@ app.use("/cart", cartMiddleware.countCart, cartRoute);
 
 // API route
 app.use("/api/products", apiAuthMiddleware.checkToken, apiProductRoute);
+// app.use("/api/products", apiProductRoute);
+app.use("/api/image", apiGetImage);
 app.use("/api/users", apiUserRoute);
 app.use("/api/categorys", apiCategoryRoute);
 app.use("/api/publishers", apiPublisherRoute);
