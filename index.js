@@ -34,6 +34,7 @@ const apiPublisherRoute = require("./api/routes/publisher.route");
 const apiAuthRoute = require("./api/routes/auth.route");
 const apiAuthMiddleware = require("./api/middlewares/checkToken.middleware");
 const apiGetImage = require("./api/routes/image.route");
+const apiCartRoute = require("./api/routes/cart.route");
 
 const port = 3001;
 
@@ -67,5 +68,6 @@ app.use("/api/users", apiUserRoute);
 app.use("/api/categorys", apiCategoryRoute);
 app.use("/api/publishers", apiPublisherRoute);
 app.use("/api/auth", apiAuthRoute);
+app.use("/api/cart", apiCartRoute);
 
 app.listen(port);
