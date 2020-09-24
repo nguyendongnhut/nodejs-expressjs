@@ -1,12 +1,12 @@
 const pool = require("../../config/GetConnect");
 
-const addOrders = async (order) => {
+const addOrders = async (totalPrice, userId) => {
   const query = "INSERT INTO orders (totalPrice, userId) VALUES (?, ?);";
 
   let rtData = [];
 
   try {
-    rtData = await pool.executeQuery(query, [order.totalPrice, order.userId]);
+    rtData = await pool.executeQuery(query, [totalPrice.totalPrice, userId]);
   } catch (error) {
     throw error;
   }
@@ -28,6 +28,11 @@ const getOrderId = async (id) => {
   return rtData;
 };
 
+/**
+ * detail of order
+ * @param {object} orderDetail
+ *
+ */
 const orderDetails = async (orderDetail) => {
   const query =
     "insert into orderdetails(orderNumber, price, orderId, productId) values ?";
@@ -35,21 +40,15 @@ const orderDetails = async (orderDetail) => {
   let rtData = [];
 
   try {
-    rtData = await pool.executeQuery(
-      query,
-      [
-        orderDetail.map((item) => [
-          item.orderNumber,
-          item.price,
-          item.orderId,
-          item.productId,
-        ]),
-      ]
-      // orderDetail.orderNumber,
-      // orderDetail.price,
-      // orderDetail.orderId,
-      // orderDetail.productId,
-    );
+    rtData = await pool.executeQuery(query, [
+      // map orderDetail into one array
+      orderDetail.cart.map((item) => [
+        item.count,
+        item.price,
+        item.orderId,
+        item.id,
+      ]),
+    ]);
   } catch (error) {
     throw error;
   }

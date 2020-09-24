@@ -1,9 +1,10 @@
 const express = require("express");
+const checkToken = require("../middlewares/checkToken.middleware");
 
 const router = express.Router();
 const controller = require("../controllers/cart.controller");
 
-router.post("/orders", controller.addOrders);
+router.post("/orders", checkToken.checkToken, controller.addOrders);
 
 // get orderId create
 router.get("/:id", controller.getOrderId);
