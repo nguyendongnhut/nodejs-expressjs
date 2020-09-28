@@ -1,4 +1,6 @@
 const pool = require("../../config/GetConnect");
+const { TokenExpiredError } = require("jsonwebtoken");
+const { query } = require("express");
 
 const addOrders = async (totalPrice, userId) => {
   const query = "INSERT INTO orders (totalPrice, userId) VALUES (?, ?);";
@@ -31,7 +33,7 @@ const getOrderId = async (id) => {
 /**
  * detail of order
  * @param {object} orderDetail
- *
+ * @return {Array}
  */
 const orderDetails = async (orderDetail) => {
   const query =
@@ -56,8 +58,108 @@ const orderDetails = async (orderDetail) => {
   return rtData;
 };
 
+/**
+ * get list order in table orders
+ * @return {Array}
+ */
+const getAllOrders = async () => {
+  const query = "select * from `orders`";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+/**
+ * get list order in table orders according to userId
+ * @param {number} userId
+ * @return {Array}
+ */
+const getOrderByUserId = async (userId) => {
+  const query = "select * from orders where userId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, userId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+/**
+ * get list order in table orders according to orderId
+ * @param {number} orderId
+ * @return {Array}
+ */
+const getOrderByOrderId = async (orderId) => {
+  const query = "select * from orders where orderId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, orderId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+/**
+ * get list detail products in table orderDetails according to userId
+ * @param {number} userId
+ * @return {Array}
+ */
+const getDetailOrderByUserId = async (userId) => {
+  const query =
+    "select * from (orderdetails as oD, orders as oDs) where oD.orderId = oDs.orderId and oDs.userId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, userId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+/**
+ * get list detail products in table orderDetails according to orderId
+ * @param {number} orderId
+ * @return {Array}
+ */
+const getDetailOrderByOrderId = async (orderId) => {
+  const query = "select * from orderdetails where orderId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, orderId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   addOrders,
   getOrderId,
   orderDetails,
+  getAllOrders,
+  getOrderByUserId,
+  getOrderByOrderId,
+  getDetailOrderByUserId,
+  getDetailOrderByOrderId,
 };

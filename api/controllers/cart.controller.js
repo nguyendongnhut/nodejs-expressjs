@@ -89,8 +89,117 @@ const orderDetails = async (req, res) => {
   res.json(objectResult);
 };
 
+/**
+ * get all order in table orders
+ * @param {object} req
+ * @param {object} res
+ * @return {Array}
+ */
+const getAllOrders = async (req, res) => {
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await cartModel.getAllOrders();
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
+/**
+ * get order in table orders according to userId
+ * @param {object} req
+ * @param {object} res
+ */
+const getOrderByUserId = async (req, res) => {
+  let userId = req.params.userId;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await cartModel.getOrderByUserId(userId);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
+/**
+ * get order in table orders according to orderId
+ * @param {object} req
+ * @param {object} res
+ */
+const getOrderByOrderId = async (req, res) => {
+  let orderId = req.params.orderId;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await cartModel.getOrderByOrderId(orderId);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
+const getDetailOrderByUserId = async (req, res) => {
+  const userId = req.params.userId;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await cartModel.getDetailOrderByUserId(userId);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
+const getDetailOrderByOrderId = async (req, res) => {
+  let orderId = req.params.orderId;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await cartModel.getDetailOrderByOrderId(orderId);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
 module.exports = {
   addOrders,
   getOrderId,
   orderDetails,
+  getAllOrders,
+  getOrderByUserId,
+  getOrderByOrderId,
+  getDetailOrderByUserId,
+  getDetailOrderByOrderId,
 };
