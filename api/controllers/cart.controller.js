@@ -193,6 +193,47 @@ const getDetailOrderByOrderId = async (req, res) => {
   res.json(objectResult);
 };
 
+/**
+ *
+ * @param {object} req
+ * @param {object} res
+ */
+const deleteOrderByOrderId = async (req, res) => {
+  const orderId = req.params.orderId;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await cartModel.deleteOrderByOrderId(orderId);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
+const deleteOrderDetailByOrderId = async (req, res) => {
+  const orderId = req.params.orderId;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await cartModel.deleteOrderDetailByOrderId(orderId);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
 module.exports = {
   addOrders,
   getOrderId,
@@ -202,4 +243,6 @@ module.exports = {
   getOrderByOrderId,
   getDetailOrderByUserId,
   getDetailOrderByOrderId,
+  deleteOrderByOrderId,
+  deleteOrderDetailByOrderId,
 };

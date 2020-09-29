@@ -153,6 +153,42 @@ const getDetailOrderByOrderId = async (orderId) => {
   return rtData;
 };
 
+/**
+ * delete order in table orders according to orderId
+ * @param {number} orderId
+ */
+const deleteOrderByOrderId = async (orderId) => {
+  const query = "delete from orders where orderId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, orderId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
+/**
+ * detele order detail in table orderdetails according to orderId
+ * @param {number} orderId
+ */
+const deleteOrderDetailByOrderId = async (orderId) => {
+  const query = "delete from orderdetails where orderId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, orderId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 module.exports = {
   addOrders,
   getOrderId,
@@ -162,4 +198,6 @@ module.exports = {
   getOrderByOrderId,
   getDetailOrderByUserId,
   getDetailOrderByOrderId,
+  deleteOrderByOrderId,
+  deleteOrderDetailByOrderId,
 };

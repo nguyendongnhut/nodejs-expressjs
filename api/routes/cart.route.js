@@ -21,4 +21,11 @@ router.get("/orderDetail/userId/:userId", controller.getDetailOrderByUserId);
 
 router.get("/orderDetail/orderId/:orderId", controller.getDetailOrderByOrderId);
 
+router.post("/deleteOrder/orderId/:orderId", controller.deleteOrderByOrderId);
+
+router.post(
+  "/deleteOrderDetail/orderId/:orderId",
+  controller.deleteOrderDetailByOrderId
+);
+
 module.exports = router;
