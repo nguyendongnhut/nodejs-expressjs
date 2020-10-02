@@ -19,6 +19,20 @@ const getUser = async () => {
   return rtData;
 };
 
+const getUserName = async (userId) => {
+  const query = "select username, userId from users where userId = ?";
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, userId);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
+
 /**
  * create new user
  * @param {object} user
@@ -149,4 +163,5 @@ module.exports = {
   checkUserAccount,
   updateInfoUser,
   changePassword,
+  getUserName,
 };

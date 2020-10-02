@@ -63,7 +63,10 @@ const orderDetails = async (orderDetail) => {
  * @return {Array}
  */
 const getAllOrders = async () => {
-  const query = "select * from `orders`";
+  const query =
+    "SELECT od.orderId, od.totalPrice, us.username, od.orderId\
+  FROM users as us\
+  INNER JOIN orders as od ON us.userId = od.userId";
 
   let rtData = [];
 
@@ -82,7 +85,11 @@ const getAllOrders = async () => {
  * @return {Array}
  */
 const getOrderByUserId = async (userId) => {
-  const query = "select * from orders where userId = ?";
+  // const query = "select * from orders where userId = ?";
+  const query =
+    "SELECT od.orderId, od.totalPrice, us.username, od.orderId\
+  FROM users as us\
+  INNER JOIN orders as od ON us.userId = od.userId and us.userId=?";
 
   let rtData = [];
 
@@ -140,7 +147,11 @@ const getDetailOrderByUserId = async (userId) => {
  * @return {Array}
  */
 const getDetailOrderByOrderId = async (orderId) => {
-  const query = "select * from orderdetails where orderId = ?";
+  // const query = "select * from orderdetails where orderId = ?";
+  const query =
+    "SELECT pr.name, pr.productId, pr.authorname, pr.image, pr.price, od.orderNumber\
+  FROM products as pr\
+  INNER JOIN orderdetails as od ON pr.productId = od.productId and od.orderId = ? ";
 
   let rtData = [];
 

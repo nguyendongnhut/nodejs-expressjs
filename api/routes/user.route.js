@@ -5,6 +5,8 @@ const controller = require("../controllers/user.controller");
 
 router.get("/", controller.viewUsers);
 
+router.get("/user", controller.getUserName);
+
 router.post("/", userMiddleware.checkUserAccount, controller.createUser);
 
 router.get("/:id", controller.detailUser);

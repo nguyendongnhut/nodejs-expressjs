@@ -1,5 +1,5 @@
 const userModel = require("../models/user.model");
-
+const atob = require("atob");
 /**
  * get list user
  * @param {object} req
@@ -14,6 +14,42 @@ const viewUsers = async (req, res) => {
 
   try {
     objectResult.data = await userModel.getUser();
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult.data);
+};
+
+const getUserName = async (req, res) => {
+  // get string token received from client
+  const bearerToken = req.headers.authorization;
+
+  // hàm phân tích chuỗi token để lấy trị payload bên trong chuỗi token
+  function parseJwt(token) {
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    var jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
+  }
+
+  const userId = parseJwt(bearerToken).body.userId;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await userModel.getUserName(userId);
   } catch (error) {
     objectResult.code = 500;
     objectResult.error = error;
@@ -91,6 +127,11 @@ const deleteUser = async (req, res) => {
   res.json(objectResult);
 };
 
+/**
+ * update info user
+ * @param {object} req
+ * @param {object} res
+ */
 const updateInfoUser = async (req, res) => {
   const userId = req.params.id;
   const user = req.body;
@@ -109,6 +150,11 @@ const updateInfoUser = async (req, res) => {
   res.json(objectResult);
 };
 
+/**
+ * change password user
+ * @param {object} req
+ * @param {object} res
+ */
 const changePassword = async (req, res) => {
   const userId = req.params.id;
   const user = req.body;
@@ -135,4 +181,5 @@ module.exports = {
   deleteUser,
   updateInfoUser,
   changePassword,
+  getUserName,
 };
