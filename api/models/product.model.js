@@ -136,9 +136,43 @@ const getListPublisherProducts = async (publisherId) => {
   return rtData;
 };
 
-// const getProductQuery = async (page, limit) => {
-//   const query = "select * from products "
-// }
+const getProductQuery = async (search) => {
+  let query =
+    "select pr.productId, pr.name, pr.authorname, pr.image, pr.price " +
+    " from products as pr, publishers as pb, categorys as ct " +
+    " where pr.categoryId = ct.categoryId and pr.publisherId = pb.publisherId " +
+    ` and pr.price BETWEEN ${search.lowPrice} and ${search.highPrice} `;
+
+  if (search.name != "") {
+    query += `and pr.name LIKE "%${search.name}%" `;
+  }
+  if (search.authorname != "") {
+    query += `and pr.authorname LIKE "%${search.authorname}%" `;
+  }
+  if (search.publisherId != "") {
+    query += `and pb.publisherId = ${search.publisherId} `;
+  }
+  if (search.categoryId != "") {
+    query += `and ct.categoryId = ${search.categoryId} `;
+  }
+
+  let rtData = [];
+
+  try {
+    rtData = await pool.executeQuery(query, [
+      search.lowPrice,
+      search.highPrice,
+      search.name,
+      search.authorname,
+      search.publisherId,
+      search.categoryId,
+    ]);
+  } catch (error) {
+    throw error;
+  }
+
+  return rtData;
+};
 
 module.exports = {
   getProduct,
@@ -148,4 +182,5 @@ module.exports = {
   detailProduct,
   getListCategoryProducts,
   getListPublisherProducts,
+  getProductQuery,
 };

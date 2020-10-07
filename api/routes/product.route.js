@@ -25,4 +25,6 @@ router.post("/uploadImage", controller.uploadImage);
 
 router.post("/q", controller.getProductQuery);
 
+router.post("/search", controller.getProductSearch);
+
 module.exports = router;

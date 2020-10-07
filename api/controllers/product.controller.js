@@ -1,6 +1,7 @@
 const productModel = require("../models/product.model");
 const fs = require("fs");
 const path = require("path");
+const { serialize } = require("v8");
 
 /**
  * get list products
@@ -227,6 +228,24 @@ const getListPublisherProducts = async (req, res) => {
   res.json(objectResult.data);
 };
 
+const getProductSearch = async (req, res) => {
+  const search = req.body;
+
+  let objectResult = {
+    code: 200,
+    error: "",
+  };
+
+  try {
+    objectResult.data = await productModel.getProductQuery(search);
+  } catch (error) {
+    objectResult.code = 500;
+    objectResult.error = error;
+  }
+
+  res.json(objectResult);
+};
+
 module.exports = {
   viewProducts,
   createProduct,
@@ -237,4 +256,5 @@ module.exports = {
   updateProduct,
   uploadImage,
   getProductQuery,
+  getProductSearch,
 };
