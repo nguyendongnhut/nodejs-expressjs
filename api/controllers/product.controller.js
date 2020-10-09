@@ -243,7 +243,7 @@ const getProductSearch = async (req, res) => {
     objectResult.error = error;
   }
 
-  res.json(objectResult);
+  res.json(objectResult.data);
 };
 
 module.exports = {

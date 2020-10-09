@@ -138,20 +138,34 @@ const getListPublisherProducts = async (publisherId) => {
 
 const getProductQuery = async (search) => {
   let query =
-    "select pr.productId, pr.name, pr.authorname, pr.image, pr.price " +
+    "select pr.productId, pr.image, pr.name, pr.authorname, pr.image, pr.price " +
     " from products as pr, publishers as pb, categorys as ct " +
-    " where pr.categoryId = ct.categoryId and pr.publisherId = pb.publisherId " +
-    ` and pr.price BETWEEN ${search.lowPrice} and ${search.highPrice} `;
+    " where pr.categoryId = ct.categoryId and pr.publisherId = pb.publisherId ";
+
+  if (search.lowPrice === "") {
+    query += `and pr.price BETWEEN "0" `;
+  } else {
+    query += `and pr.price BETWEEN ${search.lowPrice} `;
+  }
+
+  if (search.highPrice === "") {
+    query += `and "999999999" `;
+  } else {
+    query += `and ${search.highPrice} `;
+  }
 
   if (search.name != "") {
     query += `and pr.name LIKE "%${search.name}%" `;
   }
+
   if (search.authorname != "") {
     query += `and pr.authorname LIKE "%${search.authorname}%" `;
   }
+
   if (search.publisherId != "") {
     query += `and pb.publisherId = ${search.publisherId} `;
   }
+
   if (search.categoryId != "") {
     query += `and ct.categoryId = ${search.categoryId} `;
   }
