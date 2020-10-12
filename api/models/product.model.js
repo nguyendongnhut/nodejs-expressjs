@@ -86,7 +86,10 @@ const updateProduct = async (product, productId) => {
  * @return {Array}
  */
 const detailProduct = async (productId) => {
-  const query = "SELECT * FROM products WHERE productId = ?";
+  const query =
+    "SELECT pr.productId, pr.name, pr.authorname, pr.price, pr.image, pr.description, pr.categoryId, pr.publisherId, ct.name as categoryName, pl.name as publisherName \
+  FROM products as pr, publishers as pl, categorys as ct \
+  WHERE pr.categoryId = ct.categoryId and pr.publisherId = pl.publisherId and pr.productId = ?";
 
   let rtData = [];
   try {
